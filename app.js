@@ -1,7 +1,7 @@
 let num1;
 let num2;
 let operator;
-const display = document.querySelector("display");
+const display = document.querySelector(".display");
 
 
 
@@ -43,6 +43,9 @@ document.body.addEventListener("keydown", function(e) {
     let key = e.key;
     const regex = /[*0-9xX\/÷=+-\.%]/g;
     if (regex.test(key)) {
-        return console.log(key);
+        display.textContent=display.textContent+key;
     };
+    if (key == "Backspace") {
+        display.textContent = display.textContent.slice(0, -1);
+    }
 });

@@ -47,9 +47,7 @@ document.body.addEventListener("keydown", function(e) {
     if (regex.test(key)) {
         display.textContent=display.textContent+key;
     }
-    // if (!isNaN(key)) {
-        
-    // }
+
     if (key == "Backspace") {
         display.textContent = display.textContent.slice(0, -1);
     }
@@ -58,14 +56,44 @@ document.body.addEventListener("keydown", function(e) {
     }
 });
 
-// Figure out how to make regex work with split function and indexOf function
-function calculation() {
-    let str = display.textContent.slice(0, -1);
+function createArray(string) {
+    let str = string;
     const arr = str.split(/[+-\/*xX÷]/g);
-    console.table(arr);
-    num1 = arr[0];
-    num2 = arr[1];
-    operator = display.textContent.charAt(display.textContent.search(/[\/*+\-xX÷]/));
-    return console.log(operate(num1, operator, num2));
+    return arr;
+}
+function getOperatorsArray() {
+    operator = display.textContent.match(/[\/*+\-xX÷]/g);
+    return operator;
 }
 
+function calculation() {
+    let myArray =createArray(display.textContent.slice(0, -1));
+    let operatorsArray=getOperatorsArray();
+    console.log(operatorsArray);
+    //console.log(myArray);
+    let length = myArray.length;
+    for (let i=0; i<length-1 ; i++) {
+        operator = operatorsArray[0];
+        deleteFirstElement(operatorsArray);
+        console.log(operator);
+        getNumberValues(myArray);
+        simplifyArray(myArray);
+    }
+    console.log(myArray);
+}
+
+function getNumberValues(arr) {
+    num1 = arr[0];
+    num2 = arr[1];
+}
+
+function simplifyArray(arr) {
+    console.log(arr);
+    myArray =arr.splice(0, 2, operate(num1, operator, num2));
+    return myArray;
+}
+
+function deleteFirstElement(arr) {
+    arr.shift();
+    return arr;
+}

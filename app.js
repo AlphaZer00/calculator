@@ -4,9 +4,11 @@ let operator;
 let clearButtonPressed = false;
 
 const display = document.querySelector(".display");
-const clearButton = document.querySelector(".ac");
+const acButton = document.querySelector(".ac");
+const cButton = document.querySelector(".c");
 
-clearButton.addEventListener("click", clear);
+acButton.addEventListener("click", clearMem);
+cButton.addEventListener("click", clearDisplay);
 
 function add(num1, num2) {
     return num1 + num2;
@@ -47,6 +49,9 @@ function handleClick() {
 document.body.addEventListener("keydown", function(e) {
     let key = e.key;
     const regex = /[*0-9xX\/÷=+-\.%]/g;
+    if (display.textContent == "ERR: Divide by 0") {
+        return;
+    }
     if (regex.test(key)) {
         display.textContent=display.textContent+key;
     }
@@ -111,8 +116,11 @@ function deleteFirstElement(arr) {
     return arr;
 }
 
-
-function clear() {
+function clearMem() {
     clearButtonPressed =true;
     calculation();
+}
+
+function clearDisplay() {
+    display.textContent = "";
 }

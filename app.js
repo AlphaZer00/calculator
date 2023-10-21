@@ -6,6 +6,8 @@ let clearButtonPressed = false;
 const display = document.querySelector(".display");
 const acButton = document.querySelector(".ac");
 const cButton = document.querySelector(".c");
+const mathButtons = document.querySelector(".math-buttons");
+const justButtons = mathButtons.childNodes;
 
 acButton.addEventListener("click", clearMem);
 cButton.addEventListener("click", clearDisplay);
@@ -40,11 +42,12 @@ function operate(num1, operator, num2) {
     }
 }
 
-document.body.addEventListener("click", handleClick());
+mathButtons.addEventListener("click", (e) => {
+    let text = e.target.textContent;
+    if (text.length > 1) return;
+    display.textContent = display.textContent + text
+});
 
-function handleClick() {
-    
-}
 
 document.body.addEventListener("keydown", function(e) {
     let key = e.key;

@@ -1,9 +1,12 @@
 let num1;
 let num2;
 let operator;
+let clearButtonPressed = false;
+
 const display = document.querySelector(".display");
+const clearButton = document.querySelector(".ac");
 
-
+clearButton.addEventListener("click", clear);
 
 function add(num1, num2) {
     return num1 + num2;
@@ -68,9 +71,15 @@ function getOperatorsArray() {
 
 function calculation() {
     let myArray =createArray(display.textContent.slice(0, -1));
+    if (clearButtonPressed == true) {
+        myArray = [];
+        clearButtonPressed = false;
+        display.textContent = myArray;
+        console.log(myArray);
+        return;
+    }
     let operatorsArray=getOperatorsArray();
     console.log(operatorsArray);
-    //console.log(myArray);
     let length = myArray.length;
     for (let i=0; i<length-1 ; i++) {
         operator = operatorsArray[0];
@@ -79,7 +88,11 @@ function calculation() {
         getNumberValues(myArray);
         simplifyArray(myArray);
     }
-    console.log(myArray);
+    
+    display.textContent=Math.round(myArray[0] *1000) / 1000;
+    if (display.textContent === "Infinity") {
+        display.textContent = "ERR: Divide by 0";
+    }
 }
 
 function getNumberValues(arr) {
@@ -96,4 +109,10 @@ function simplifyArray(arr) {
 function deleteFirstElement(arr) {
     arr.shift();
     return arr;
+}
+
+
+function clear() {
+    clearButtonPressed =true;
+    calculation();
 }

@@ -16,6 +16,70 @@ acButton.addEventListener("click", clearMem);
 cButton.addEventListener("click", clearDisplay);
 equalsButton.addEventListener("click", calculation);
 
+//This function makes stores button click inputs and calls manageMemory
+mathButtons.addEventListener("click", (e) => {
+    text = e.target.textContent;
+    manageMemory("m");
+});
+
+//This function stores key inputs and calls manageMemory
+document.body.addEventListener("keydown", function(e) {
+    key = e.key;
+    manageMemory("k");
+});
+
+function manageMemory(eventType) {
+    const isCalcButton = /[*0-9xX+\/÷=+\-.%]/;
+    const isNumber = /[0-9\.]/g;
+    const isOperator= /[\/*+\-xX÷]/g;
+    let operatorPressed = false;
+    let backspacePressed = false;
+    console.log(memory);
+    if (key === "Backspace") {
+       backspacePressed = true;
+    }
+
+    if (eventType === "k" && backspacePressed === true) {
+        memory = memory.toString().slice(0, -1);
+        display.textContent = (display.textContent).slice(0, -1);
+        backspacePressed = false;
+    }
+
+    if (eventType === "k" && !isCalcButton.test(key)) return;
+
+    if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
+        memory += text;
+    }
+console.log(isCalcButton.test(key));
+    if (eventType === "k" && isCalcButton.test(key)) {
+        memory += key;
+    }
+
+    if (isOperator.test(memory.charAt(memory.length - 1))) {
+        operatorPressed = true;
+    }
+
+    if (operatorPressed) {
+        display.textContent = "";
+        if (isOperator.test(memory.charAt(memory.length - 1))) {
+            memory.slice(0,-1);
+        } else if (isNumber.test(memory.charAt(memory.length - 1))) {
+            display.textContent += memory.charAt(memory.length - 1);
+        }
+        operatorPressed = false;
+    } else if (!operatorPressed) {
+        if (isCalcButton.test(memory.charAt(memory.length - 1))) {
+            display.textContent += memory.charAt(memory.length - 1);
+        }
+    }
+
+    if (memory.charAt(memory.length - 1) === "=") {
+        memory = memory.slice(0, -1);
+        display.textContent = display.textContent.slice(0, -1);
+        calculation();
+    }
+}
+
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -45,18 +109,6 @@ function operate(num1, operator, num2) {
         return divide(num1, num2);
     }
 }
-
-//This function makes buttons update display
-mathButtons.addEventListener("click", (e) => {
-    text = e.target.textContent;
-    console.log(e);
-    manageMemory("m");
-});
-
-document.body.addEventListener("keydown", function(e) {
-    key = e.key;
-    manageMemory("k");
-});
 
 function calculation() {
     console.log(memory);
@@ -124,59 +176,4 @@ function createArray(string) {
 function getOperatorsArray() {
     operator = memory.match(/[\/*+\-xX÷]/g);
     return operator;
-}
-
-function manageMemory(eventType) {
-    const isCalcButton = /[*0-9xX+\/÷=+\-.%]/;
-    const isNumber = /[0-9\.]/g;
-    const isOperator= /[\/*+\-xX÷]/g;
-    let operatorPressed = false;
-    let backspacePressed = false;
-    console.log(memory);
-    if (key === "Backspace") {
-       backspacePressed = true;
-    }
-
-
-    if (eventType === "k" && backspacePressed === true) {
-        memory = memory.toString().slice(0, -1);
-        display.textContent = (display.textContent).slice(0, -1);
-        backspacePressed = false;
-    }
-
-    if (eventType === "k" && !isCalcButton.test(key)) return;
-
-    if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
-        memory += text;
-    }
-console.log(isCalcButton.test(key));
-    if (eventType === "k" && isCalcButton.test(key)) {
-        memory += key;
-    }
-
-    if (isOperator.test(memory.charAt(memory.length - 1))) {
-        operatorPressed = true;
-    }
-
-    if (operatorPressed) {
-        display.textContent = "";
-        if (isOperator.test(memory.charAt(memory.length - 1))) {
-            memory.slice(0,-1);
-        } else if (isNumber.test(memory.charAt(memory.length - 1))) {
-            display.textContent += memory.charAt(memory.length - 1);
-        }
-        operatorPressed = false;
-    } else if (!operatorPressed) {
-       // console.log(display.textContent += memory.charAt(memory.length - 1));
-        if (isCalcButton.test(memory.charAt(memory.length - 1))) {
-            display.textContent += memory.charAt(memory.length - 1);
-        }
-    }
-
-    if (memory.charAt(memory.length - 1) === "=") {
-        memory = memory.slice(0, -1);
-        display.textContent = display.textContent.slice(0, -1);
-        console.log(memory);
-        calculation();
-    }
 }

@@ -1,0 +1,17 @@
+.calculator-body {
+    background-color: grey;
+    width:400px;
+}
+.buttons>button {
+    font-size: larger;
+}
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .1rem;
+}
+
+button {
+    width: 100px;
+    height: 100px;
+}

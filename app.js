@@ -137,6 +137,8 @@ function manageMemory(eventType) {
        backspacePressed = true;
     }
 
+    if (eventType === "k" && !isCalcButton.test(key)) return;
+
     if (eventType === "k" && backspacePressed == true) {
         memory = memory.toString().slice(0, -1);
         display.textContent = (display.textContent).slice(0, -2);
@@ -146,7 +148,7 @@ function manageMemory(eventType) {
     if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
         memory += text;
     }
-
+console.log(isCalcButton.test(key));
     if (eventType === "k" && isCalcButton.test(key)) {
         memory += key;
     }

@@ -35,22 +35,17 @@ function manageMemory(eventType) {
     let operatorPressed = false;
     let backspacePressed = false;
     console.log(memory);
-    if (key === "Backspace") {
-       backspacePressed = true;
-    }
-
-    if (eventType === "k" && backspacePressed === true) {
+    if (key === "Backspace" && eventType == "k" || text === "⌫" && eventType === "m") {
         memory = memory.toString().slice(0, -1);
-        display.textContent = (display.textContent).slice(0, -1);
+        display.textContent = display.textContent.toString().slice(0, -1);
         backspacePressed = false;
     }
-
-    if (eventType === "k" && !isCalcButton.test(key)) return;
+    if (eventType === "k" && !isCalcButton.test(key) || eventType === "m" && !isCalcButton.test(text)) return;
 
     if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
         memory += text;
     }
-console.log(isCalcButton.test(key));
+
     if (eventType === "k" && isCalcButton.test(key)) {
         memory += key;
     }

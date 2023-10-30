@@ -1,17 +1,26 @@
 .calculator-body {
-    background-color: grey;
-    width:400px;
+    background-color: #5E8C61;
+    width: 450px;
 }
+
 .buttons>button {
     font-size: larger;
 }
+
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: .1rem;
+    gap: .5rem;
+    padding: .5rem;
 }
 
 button {
-    width: 100px;
-    height: 100px;
+    background-color: #94E8B4;
+    border-radius: 10px
+
+}
+
+.equals {
+    grid-column: 3/5;
+    grid-row-start: 6;
 }

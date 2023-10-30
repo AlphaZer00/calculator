@@ -9,7 +9,7 @@ let text = "";
 const display = document.querySelector(".display");
 const acButton = document.querySelector(".ac");
 const cButton = document.querySelector(".c");
-const mathButtons = document.querySelector(".math-buttons");
+const buttons = document.querySelector(".buttons");
 const equalsButton = document.querySelector(".equals");
 
 acButton.addEventListener("click", clearMem);
@@ -17,7 +17,8 @@ cButton.addEventListener("click", clearDisplay);
 equalsButton.addEventListener("click", calculation);
 
 //This function makes stores button click inputs and calls manageMemory
-mathButtons.addEventListener("click", (e) => {
+buttons.addEventListener("click", (e) => {
+    if (e.target.textContent.length > 1) return;
     text = e.target.textContent;
     manageMemory("m");
 });
@@ -45,15 +46,15 @@ function manageMemory(eventType) {
     if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
         memory += text;
     }
-
+    
     if (eventType === "k" && isCalcButton.test(key)) {
         memory += key;
     }
-
+    
     if (isOperator.test(memory.charAt(memory.length - 1))) {
         operatorPressed = true;
     }
-
+    
     if (operatorPressed) {
         display.textContent = "";
         if (isOperator.test(memory.charAt(memory.length - 1))) {
@@ -63,6 +64,7 @@ function manageMemory(eventType) {
         }
         operatorPressed = false;
     } else if (!operatorPressed) {
+        console.log("tep");
         if (isCalcButton.test(memory.charAt(memory.length - 1))) {
             display.textContent += memory.charAt(memory.length - 1);
         }

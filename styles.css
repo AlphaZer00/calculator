@@ -1,10 +1,11 @@
+@font-face{
+    font-family: "digital-7";
+    src: url(Styles/digital-7.ttf);
+}
+
 .calculator-body {
     background-color: #5E8C61;
     width: 450px;
-}
-
-.buttons>button {
-    font-size: larger;
 }
 
 .buttons {
@@ -15,12 +16,26 @@
 }
 
 button {
+    font-family: 'digital-7';
     background-color: #94E8B4;
-    border-radius: 10px
-
+    border-radius: 10px;
+    border: none;
+    font-style: italic;
+    font-size: 80px;
 }
 
 .equals {
     grid-column: 3/5;
     grid-row-start: 6;
 }
+
+
+ .display {
+    font-family: 'digital-7', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    min-height: 2rem;;
+    padding: .5rem;
+    border: 10px solid #4E6151;
+ }

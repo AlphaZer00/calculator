@@ -39,20 +39,21 @@ function manageMemory(eventType) {
         memory = memory.toString().slice(0, -1);
         display.textContent = display.textContent.toString().slice(0, -1);
     }
-    if (eventType === "k" && !isCalcButton.test(key) || eventType === "m" && !isCalcButton.test(text)) return;
-
+    if (eventType === "k" && !isCalcButton.test(key) /*|| eventType === "m" && !isCalcButton.test(text)*/) return;
+    
     if (eventType === "m" && text.length < 4 && isCalcButton.test(text)) {
         memory += text;
         console.log("here");
     }
-
-    if (eventType = "m" && text === "+/-") {
+    
+    if (eventType === "m" && text === "+/-") {
         memory = memory.slice(0, -3);
-        
     }
     
+    console.log(isCalcButton.test(key));
     if (eventType === "k" && isCalcButton.test(key)) {
         memory += key;
+        console.log("hey");
     }
     
     if (isOperator.test(memory.charAt(memory.length - 1))) {

@@ -13,13 +13,13 @@ const buttons = document.querySelector(".buttons");
 const equalsButton = document.querySelector(".equals");
 
 acButton.addEventListener("click", clearMem);
-cButton.addEventListener("click", clearDisplay);
 equalsButton.addEventListener("click", calculation);
 
 //This function makes stores button click inputs and calls manageMemory
 buttons.addEventListener("click", (e) => {
-    if (e.target.textContent.length > 1) return;
+    if (e.target.textContent.length > 4) return;
     text = e.target.textContent;
+    console.log(text);
     manageMemory("m");
 });
 
@@ -30,21 +30,25 @@ document.body.addEventListener("keydown", function(e) {
 });
 
 function manageMemory(eventType) {
-    const isCalcButton = /[*0-9xX+\/÷=+\-.%]/;
+    const isCalcButton = /([*0-9xX+\/÷=+\-.%^]|\+\/-)/;
     const isNumber = /[0-9\.]/g;
-    const isOperator= /[\/*+\-xX÷]/g;
+    const isOperator= /[\/*+\-xX÷^]/g;
     let operatorPressed = false;
-    let backspacePressed = false;
     console.log(memory);
     if (key === "Backspace" && eventType == "k" || text === "⌫" && eventType === "m") {
         memory = memory.toString().slice(0, -1);
         display.textContent = display.textContent.toString().slice(0, -1);
-        backspacePressed = false;
     }
     if (eventType === "k" && !isCalcButton.test(key) || eventType === "m" && !isCalcButton.test(text)) return;
 
-    if (eventType === "m" && text.length == 1 && isCalcButton.test(text)) {
+    if (eventType === "m" && text.length < 4 && isCalcButton.test(text)) {
         memory += text;
+        console.log("here");
+    }
+
+    if (eventType = "m" && text === "+/-") {
+        memory = memory.slice(0, -3);
+        
     }
     
     if (eventType === "k" && isCalcButton.test(key)) {
@@ -64,7 +68,6 @@ function manageMemory(eventType) {
         }
         operatorPressed = false;
     } else if (!operatorPressed) {
-        console.log("tep");
         if (isCalcButton.test(memory.charAt(memory.length - 1))) {
             display.textContent += memory.charAt(memory.length - 1);
         }
@@ -93,6 +96,10 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
+function exponentiate(num1, num2) {
+    return num1 ** num2;
+}
+
 function operate(num1, operator, num2) {
     num1 = +num1;
     num2 = +num2;
@@ -104,8 +111,11 @@ function operate(num1, operator, num2) {
         return multiply(num1, num2);
     } else if (operator === "/" || operator === "÷") {
         return divide(num1, num2);
+    } else if (operator === "^") {
+        return (exponentiate(num1, num2));
     }
 }
+
 
 function calculation() {
     console.log(memory);
@@ -166,11 +176,11 @@ function clearDisplay() {
 
 function createArray(string) {
     let str = string;
-    const arr = str.split(/[+-\/*xX÷=]/g);
+    const arr = str.split(/[+-\/*xX÷=^]/g);
     return arr;
 }
 
 function getOperatorsArray() {
-    operator = memory.match(/[\/*+\-xX÷]/g);
+    operator = memory.match(/[\/*+\-xX÷^]/g);
     return operator;
 }

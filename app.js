@@ -19,7 +19,6 @@ equalsButton.addEventListener("click", calculation);
 buttons.addEventListener("click", (e) => {
     if (e.target.textContent.length > 4) return;
     text = e.target.textContent;
-    console.log(text);
     manageMemory("m");
 });
 
@@ -34,7 +33,7 @@ function manageMemory(eventType) {
     const isNumber = /[0-9\.]/g;
     const isOperator= /[\/*+\-xX÷^]/g;
     let operatorPressed = false;
-    console.log(memory);
+
     if (key === "Backspace" && eventType == "k" || text === "⌫" && eventType === "m") {
         memory = memory.toString().slice(0, -1);
         display.textContent = display.textContent.toString().slice(0, -1);
@@ -43,17 +42,14 @@ function manageMemory(eventType) {
     
     if (eventType === "m" && text.length < 4 && isCalcButton.test(text)) {
         memory += text;
-        console.log("here");
     }
     
     if (eventType === "m" && text === "+/-") {
         memory = memory.slice(0, -3);
     }
     
-    console.log(isCalcButton.test(key));
     if (eventType === "k" && isCalcButton.test(key)) {
         memory += key;
-        console.log("hey");
     }
     
     if (isOperator.test(memory.charAt(memory.length - 1))) {
@@ -79,6 +75,8 @@ function manageMemory(eventType) {
         display.textContent = display.textContent.slice(0, -1);
         calculation();
     }
+
+    checkError();
 }
 
 function add(num1, num2) {
@@ -117,11 +115,9 @@ function operate(num1, operator, num2) {
     }
 }
 
-
 function calculation() {
     console.log(memory);
     let myArray =createArray(memory);
-    console.log(myArray);
     if (clearButtonPressed == true) {
         myArray = [];
         memory = '';
@@ -131,12 +127,10 @@ function calculation() {
     } 
 
     let operatorsArray=getOperatorsArray();
-    console.log(operatorsArray);
     let length = myArray.length;
     for (let i=0; i<length-1 ; i++) {
         operator = operatorsArray[0];
         deleteFirstElement(operatorsArray);
-        console.log(operator);
         getNumberValues(myArray);
         simplifyArray(myArray);
         memory = myArray[0];
@@ -156,7 +150,6 @@ function getNumberValues(arr) {
 
 function simplifyArray(arr) {
     myArray = arr.splice(0, 2, operate(num1, operator, num2));
-    console.log(myArray);
     return myArray;
 }
 
@@ -177,11 +170,18 @@ function clearDisplay() {
 
 function createArray(string) {
     let str = string;
-    const arr = str.split(/[+-\/*xX÷=^]/g);
+    const arr = str.split(/[+\-\/*xX÷=^]/g);
     return arr;
 }
 
 function getOperatorsArray() {
     operator = memory.match(/[\/*+\-xX÷^]/g);
     return operator;
+}
+
+function checkError() {
+    if (display.textContent === "NAN") {
+        display.textContent = "Error";
+        memory = "";
+    }    
 }

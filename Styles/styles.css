@@ -19,7 +19,7 @@ body {
 }
 
 .buttons>button {
-    font-size: larger;
+    font-size: 2rem;
 }
 
 .buttons {
@@ -28,7 +28,6 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: .5rem;
     padding: .5rem;
-    font-size: 1.875rem;
 }
 
 button {
@@ -36,6 +35,10 @@ button {
     border-radius: 30px;
     border: none;
     font-family: "digital-7";
+}
+
+button:hover {
+    background-color: #7ad09b;
 }
 
 .equals {

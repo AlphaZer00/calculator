@@ -40,7 +40,7 @@ button {
 
 .equals {
     grid-column: 3/5;
-    grid-row-start: 6;
+    grid-row-start: 5;
 }
 
 .display {
@@ -49,9 +49,26 @@ button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
     min-height: 4rem;
     padding: .5rem;
     border: 10px solid #4E6151;
     border-radius: 10px;
     background-color: #72BDA3;
+}
+
+a {
+    color: #3B322C;
+    font-size: 1.1rem;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #8eae91;
 }

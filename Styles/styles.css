@@ -34,7 +34,7 @@ button {
     background-color: #94E8B4;
     border-radius: 30px;
     border: none;
-    font-family: "digital-7";
+    font-family: "digital-7", monospace;
 }
 
 button:hover {
@@ -47,7 +47,7 @@ button:hover {
 }
 
 .display {
-    font-family: "digital-7";
+    font-family: "digital-7", monospace;
     font-size: 3.5rem;
     display: flex;
     align-items: center;
